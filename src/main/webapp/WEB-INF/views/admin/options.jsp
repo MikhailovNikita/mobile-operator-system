@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Testing rest</title>
-    <jsp:include page="stylesheet.jsp"/>
+    <title>Options page</title>
+    <jsp:include page="../stylesheet.jsp"/>
     <script>
         $(document).ready(function() {
 
@@ -12,14 +12,13 @@
                     //Define & initialize vars
                     var table = $('<table id="table-body" class="table table-striped table-bordered" cellspacing="0" cellpadding="3" border="1"/>'),
                         thead = $('<thead/>'),
-                        th = $('<th/>')
+                        th = $('<th/>'),
                         tbody = $('<tbody/>'),
                         tr = $('<tr/>'),
                         td = $('<td/>');
 
                     //create header
                     var thisTR = tr.clone();
-                    thisTR.append(th.clone().html("ID"));
                     thisTR.append(th.clone().html("Name"));
                     thisTR.append(th.clone().html("Cost"));
                     thisTR.append(th.clone().html("Access cost"));
@@ -30,7 +29,6 @@
                     $('#table-body').DataTable({
                         "data": response,
                         "columns" : [
-                            { "data" : "id" },
                             { "data" : "name" },
                             { "data" : "cost" },
                             { "data" : "accessCost" }
@@ -41,15 +39,11 @@
 
 
         });
-
-    </script>
-    <script>
-        function reload() {
-            location.reload(true);
-        }
     </script>
 </head>
 <body>
-<div id="table"></div>
+    <div class="container">
+        <div id="table"></div>
+    </div>
 </body>
 </html>

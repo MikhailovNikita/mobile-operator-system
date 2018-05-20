@@ -52,6 +52,10 @@ public class ContractService {
         return ContractDTO.toDTO(contractDAO.get(id));
     }
 
+    public List<ContractDTO> getAllContracts(){
+        return contractDAO.getAll().stream().map(ContractDTO::toDTO).collect(Collectors.toList());
+    }
+
     public void userBlocksContract(Long id) {
         Contract contract = contractDAO.get(id);
         contract.setBlockedByUser(true);

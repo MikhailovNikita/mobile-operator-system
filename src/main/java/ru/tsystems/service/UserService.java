@@ -72,6 +72,10 @@ public class UserService {
         return userDAO.getAllClients().stream().map(UserDTO::toDTO).collect(Collectors.toList());
     }
 
+    public UserDTO getClientById(Long id){
+        return UserDTO.toDTO(userDAO.get(id));
+    }
+
 
     public UserDTO getClientByNumber(String number){
         return UserDTO.toDTO(userDAO.getClientByNumber(number));

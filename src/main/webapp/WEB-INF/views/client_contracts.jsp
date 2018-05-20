@@ -5,7 +5,6 @@
 <html>
 <head>
     <title>Your contracts</title>
-    <link rel="stylesheet" type="text/css" href="../../resources/css/materialize.css">
     <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>

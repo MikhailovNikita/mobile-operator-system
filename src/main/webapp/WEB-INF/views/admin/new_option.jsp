@@ -3,37 +3,52 @@
 <html>
 <head>
     <title>New option</title>
-    <link rel="stylesheet" type="text/css" href="../../resources/css/materialize.css">
     <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.css">
+    <script type="text/javascript">
+        function submitForm(){
+            var object = {};
+            var myForm = document.getElementById('new_option');
+            formData = new FormData(myForm);
+            formData.forEach(function(value, key){
+                object[key] = value;
+            });
+            var json = JSON.stringify(object);
+            console.log(json);
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8081/api/options",
+                contentType : "application/json",
+                data: json
+            }).done(function(result){
+                myForm.reset();
+                $('#popupMessage').html(result);
+            }).fail(function(result){
+                $('#popupMessage').html(result.responseText);
+            });
+
+            $('#popupModal').modal('show');
+            return false;
+
+
+        }
+    </script>
 </head>
 <body>
 <jsp:include page="admin_header.jsp"/>
-<div class="container" style="margin-top: 65px">
-    <div class="card">
-        <div class="card-body" style="margin: 1%">
-            <h5 class="card-title">New option</h5>
-            <spring:form method="post" modelAttribute="optionDTO" action="new_option">
-                <div class="form-group">
-                    <label>Option's name:</label>
-                    <spring:input path="name"/> <br/>
-                </div>
-                <div class="form-group">
-                    <label>Cost: </label>
-                    <spring:input path="cost" placeholder="0"/> <br/>
-                </div>
-                <div class="form-group">
-                    <label>Access cost:</label>
-                    <spring:input path="accessCost" placeholder="0"/> <br/>
-                </div>
+<div id="main" class="container" style="margin-top: 65px">
 
-                <spring:button class="btn btn-primare">Add option</spring:button>
-
-            </spring:form>
-        </div>
-
+    <div>
+        <form name="New option" id="new_option" onsubmit="return submitForm()">
+            <input id="name" name="name" type="text" >
+            <input id="cost" name="cost" type="number">
+            <input id="accessCost" name="accessCost" type="number">
+            <input type="submit">
+        </form>
     </div>
 
+    <jsp:include page="../resultPopup.jsp"/>
 </div>
+
 
 </body>
 </html>

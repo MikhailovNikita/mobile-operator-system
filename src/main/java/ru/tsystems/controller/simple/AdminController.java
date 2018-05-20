@@ -1,4 +1,4 @@
-package ru.tsystems.controller;
+package ru.tsystems.controller.simple;
 
 
 import org.apache.log4j.Logger;
@@ -117,6 +117,11 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+    @RequestMapping(value = "options", method = RequestMethod.GET)
+    public String optionControlPage(){
+        return "admin/options";
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public String adminHomePage(){
         return "admin/admin_home";
@@ -181,7 +186,7 @@ public class AdminController {
     @RequestMapping(value = "delete_tariff", method = RequestMethod.POST)
     public String deleteTariffPost(Model model,
                                    @RequestParam(name = "tariffId") String tariffId){
-        tariffService.delete(Long.valueOf(tariffId));
+        tariffService.archive(Long.valueOf(tariffId));
         model.addAttribute("tariffList", tariffService.getAllTariffs());
         return "admin/delete_tariff";
     }
@@ -190,7 +195,7 @@ public class AdminController {
     @RequestMapping(value = "clients", method = RequestMethod.GET)
     public String allClientsGet(Model model){
         model.addAttribute("clientsList", userService.getAllClients());
-        return "clients";
+        return "admin/clients";
     }
 
 

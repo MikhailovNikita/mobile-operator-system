@@ -52,8 +52,8 @@
         function changeBlockStatus(block, contractId){
             var x = confirm('Are you sure?')
 
-            if(x === true){
-                if(block){
+            if(x === true) {
+                if (block) {
                     $.ajax({
                         type: 'POST',
                         url: '/client/block_contract',
@@ -61,7 +61,7 @@
                             contractId: contractId,
                         }
                     });
-                }else{
+                } else {
                     $.ajax({
                         type: 'POST',
                         url: '/client/unblock_contract',
@@ -71,17 +71,7 @@
                     });
                 }
 
-                $.ajax({
-                    type: 'POST',
-                    url: '/client/show_contract',
-                    data: {
-                        contractId: contractId
-                    },
-                    success: function(){
-                        location.reload();
-                    }
-                });
-
+                location.reload(true);
             }
         }
 

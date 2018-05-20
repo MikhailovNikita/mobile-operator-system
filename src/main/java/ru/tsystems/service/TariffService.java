@@ -36,20 +36,24 @@ public class TariffService {
         return tariffDAO.getAll().stream().map(TariffDTO::toDTO).collect(Collectors.toList());
     }
 
-    public List<TariffDTO> getActiveTariffs(){
+    public List<TariffDTO> getActiveTariffs() {
         return tariffDAO.getActiveTariffs().stream().map(TariffDTO::toDTO).collect(Collectors.toList());
     }
 
     /**
      * Move tariff to the archive
+     *
      * @param id id of the tariff
      */
-    public void delete(Long id){
+    public void archive(Long id) {
         tariffDAO.get(id).setArchive(true);
     }
 
+    public TariffDTO get(Long id) {
+        return TariffDTO.toDTO(tariffDAO.get(id));
+    }
 
-    public void changeOptions(Long tariffId, List<Long> optionIds){
+    public void changeOptions(Long tariffId, List<Long> optionIds) {
         throw new UnsupportedOperationException();
     }
 }

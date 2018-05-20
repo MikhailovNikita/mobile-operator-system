@@ -1,4 +1,4 @@
-package ru.tsystems.controller;
+package ru.tsystems.controller.simple;
 
 
 import org.apache.log4j.Logger;

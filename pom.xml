@@ -139,14 +139,6 @@
             <version>5.15.3</version>
         </dependency>
 
-
-        <!-- Utils for password generating -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
-        </dependency>
-
         <!-- DB connectivity-->
         <dependency>
             <groupId>mysql</groupId>

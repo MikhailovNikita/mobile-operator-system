@@ -12,6 +12,16 @@
 
     <mvc:annotation-driven />
     <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />
+    
+    <!--<mvc:cors>-->
+        <!--<mvc:mapping path="/api/**"-->
+                     <!--allowed-origins="http://localhost:8080"-->
+                     <!--allowed-methods="GET"-->
+                     <!--allowed-headers="Content-Type"-->
+                     <!--exposed-headers="header-1, header-2"-->
+                     <!--allow-credentials="false"-->
+                     <!--max-age="6000" />-->
+    <!--</mvc:cors>-->
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>

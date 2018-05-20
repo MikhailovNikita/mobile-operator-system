@@ -32,6 +32,7 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
             entityManager.persist(entity);
         } catch (PersistenceException e) {
             logger.debug(e.toString());
+            throw e;
         }
     }
 

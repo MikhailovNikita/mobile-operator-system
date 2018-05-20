@@ -6,43 +6,64 @@
 <html>
 <head>
     <title>New contract page</title>
-    <link rel="stylesheet" type="text/css" href="../../../resources/css/materialize.css">
     <link rel="stylesheet" type="text/css" href="../../../resources/css/bootstrap.css">
+    <jsp:include page="../stylesheet.jsp"/>
+    <script type="text/javascript">
+        function submitForm() {
+            var object = {};
+            var myForm = document.getElementById('new_contract');
+            formData = new FormData(myForm);
+            formData.forEach(function (value, key) {
+                if(key === 'tariff'){
+                    var tariffDTO = {};
+                    tariffDTO.id = value;
+                    object['tariffDTO'] = tariffDTO;
+                }else{
+                    object[key] = value;
+                }
+
+            });
+            var json = JSON.stringify(object);
+            console.log(json);
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8081/api/contracts",
+                contentType: "application/json",
+                data: json
+            }).done(function (result) {
+                myForm.reset();
+                alert('Success')
+            }).fail(function (result) {
+                alert('Fail');
+            });
+
+            return false;
+
+
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.getJSON('/api/tariffs', function (data){
+                $(data).each(function(){
+                    var tariffOption = "<option value=\"" + this.id + "\">" + this.name + "</option>";
+                    $('#tariffs').append(tariffOption);
+                })
+            })
+        })
+    </script>
 </head>
 <body>
-<jsp:include page="admin_header.jsp"/>
 <div class="container">
     <div>
-        <div class="card" style="margin: 10%">
-            <h5 class="card-header">New contract</h5>
-            <div class="card-body" style="margin: 1%">
-
-                <spring:form method="post" modelAttribute="contractDTO" action="new_contract">
-
-                    <div class="form-group">
-                        <label>Client's passport:</label>
-                        <spring:input path="ownersPassport"/> <br>
-                        <spring:errors path="ownersPassport" cssClass="error"/> <br>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Number: </label>
-                        <spring:input path="number"/> <br>
-                        <spring:errors path="number" cssClass="error"/> <br>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Tariff:</label><br>
-                        <spring:select class="form-control" path="tariffDTO.id">
-                            <spring:options items="${tariffs}" itemValue="id" itemLabel="name"/>
-                        </spring:select> <br/>
-                    </div>
-
-                    <spring:button>Add contract</spring:button>
-
-                </spring:form>
-            </div>
-        </div>
+        <form name="New contract" id="new_contract" onsubmit="return submitForm()">
+            <input id="ownersPassport" name="ownersPassport" type="text">
+            <input id="number" name="number" type="tel">
+            <select id="tariffs">
+            </select>
+            <input type="submit">
+        </form>
     </div>
 
 </div>

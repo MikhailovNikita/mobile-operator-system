@@ -110,6 +110,7 @@ public class UserDTO {
     }
 
     public static UserDTO toDTO(User user){
+        /* DO NOT set password in DTO */
         if(Objects.isNull(user)) return null;
         UserDTO dto = new UserDTO();
         dto.setAddress(user.getAddress());
