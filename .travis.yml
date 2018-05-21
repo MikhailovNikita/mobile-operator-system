@@ -1,3 +1,11 @@
 language: java
 jdk:
   - oraclejdk8
+
+addons:
+  sonarcloud:
+    organization: "mikhailovnikita-github"
+      token:
+        secure: "5e163dff9c8d4d2d6cc2cedd6894f3f5d19e1bf7"
+script:
+     - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
