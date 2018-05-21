@@ -5,7 +5,7 @@ jdk:
 addons:
   sonarcloud:
     organization: "mikhailovnikita-github"
-      token:
-        secure: "5e163dff9c8d4d2d6cc2cedd6894f3f5d19e1bf7"
+    token:
+      secure: "677805172e8aae94a62f70e4e841fb8c8f389587"
 script:
-     - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
