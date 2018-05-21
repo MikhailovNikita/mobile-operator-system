@@ -10,7 +10,7 @@ import java.util.Properties;
  * Util for sending emails
  */
 public class EmailNotification {
-    private final static Logger logger = Logger.getLogger(EmailNotification.class);
+    private static final Logger logger = Logger.getLogger(EmailNotification.class);
 
     /**
      * method for sending password via email

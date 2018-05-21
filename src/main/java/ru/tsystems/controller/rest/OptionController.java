@@ -1,7 +1,7 @@
 package ru.tsystems.controller.rest;
 
 
-import org.apache.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,6 @@ import ru.tsystems.dto.OptionDTO;
 import ru.tsystems.service.OptionService;
 import ru.tsystems.utils.JMSProducer;
 
-import javax.jms.JMSException;
 import java.util.List;
 
 
@@ -22,8 +21,6 @@ public class OptionController {
     private OptionService optionService;
     @Autowired
     private JMSProducer jmsProducer;
-
-    private static final Logger logger = Logger.getLogger(OptionController.class);
 
     @GetMapping({"", "/"})
     public ResponseEntity<List<OptionDTO>> get(){
@@ -56,7 +53,7 @@ public class OptionController {
 
     @PutMapping("/{id1}/require/{id2}")
     public ResponseEntity<String> addRequiringRule(@PathVariable long id1, @PathVariable long id2){
-        optionService.addForbiddingOptions(String.valueOf(id1), String.valueOf(id2));
+        optionService.addRequiredOption(String.valueOf(id1), String.valueOf(id2));
         return new ResponseEntity<>("Rule was added", HttpStatus.OK);
     }
 

@@ -16,10 +16,9 @@
         <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/client/**" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/client" access="hasRole('ROLE_USER')"/>
-        <csrf disabled="true"/>
+        <!--<csrf disabled="true"/>-->
     </http>
 
-    <global-method-security pre-post-annotations="enabled"/>
 
     <authentication-manager id="dao-auth">
         <authentication-provider user-service-ref="userDetailsService">

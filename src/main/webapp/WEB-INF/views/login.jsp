@@ -2,11 +2,7 @@
 <html>
 <head>
 
-    <link rel="stylesheet" type="text/css" href="../resources/css/bootstrap.css">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-
+    <jsp:include page="stylesheet.jsp"/>
 </head>
 <body>
 <div class="container">
@@ -19,20 +15,24 @@
             <form role="form" method="POST" action="/login">
                 <div class="form-group">
                     <label>Your email</label>
-                    <input name="username" class="form-control" placeholder="you@example.com" type="email">
+                    <input id="login_field" name="username" class="form-control" placeholder="you@example.com" type="email">
                 </div>
                 <div class="form-group">
                     <a class="float-right" href="/password_reset">Forgot?</a>
                     <label>Your password</label>
-                    <input name="password" class="form-control" placeholder="******" type="password">
+                    <input id="password_field" name="password" class="form-control" placeholder="******" type="password">
                 </div>
-
+                <input type="hidden"
+                       name="${_csrf.parameterName}"
+                       value="${_csrf.token}"/>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-dark btn-block">Sign in</button>
+                    <button id="login_submit" type="submit" class="btn btn-dark btn-block">Sign in</button>
                 </div>
                 <div class="form-group">
                     <a style="color: red">${errorMessage}</a>
+                    <c:out value='${sessionScope.token}'/>
                 </div>
+
             </form>
         </article>
     </div>

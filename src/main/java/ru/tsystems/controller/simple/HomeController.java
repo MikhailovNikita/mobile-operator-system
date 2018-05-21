@@ -1,7 +1,8 @@
 package ru.tsystems.controller.simple;
 
-import org.apache.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,6 @@ public class HomeController {
     @Autowired
     private OptionService optionService;
 
-    private static final Logger logger = Logger.getLogger(HomeController.class);
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Principal principal){
@@ -35,14 +35,11 @@ public class HomeController {
         return "tariffs";
     }
 
+
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "test", method = RequestMethod.GET)
     public String testingPage(){
         return "test";
-    }
-
-    @RequestMapping(value = "test2", method = RequestMethod.GET)
-    public String testingPage2(){
-        return "admin/test2";
     }
 
     @RequestMapping(value = "options", method = RequestMethod.GET)

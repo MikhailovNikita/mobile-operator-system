@@ -12,6 +12,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class RestControllerAdvice extends ResponseEntityExceptionHandler {
     private static final Logger myLogger = Logger.getLogger(RestControllerAdvice.class);
 
+    @ExceptionHandler(UnsupportedOperationException.class)
+    protected ResponseEntity<String> unsupportedOperationExceptionClass(final UnsupportedOperationException e){
+        return new ResponseEntity<>("Looks like that function is not implemented yet", HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<String> exceptionClass(final Exception e){
         myLogger.debug(e);

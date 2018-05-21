@@ -27,7 +27,7 @@ public class UserService {
     @Autowired
     private ContractDAO contractDAO;
 
-    final static Logger logger = Logger.getLogger(UserService.class);
+    private static final Logger logger = Logger.getLogger(UserService.class);
 
     public void registerUser(UserDTO userDTO) {
         User user = userDTO.toEntity();

@@ -21,9 +21,10 @@ public class EcareAuthenticationSuccessHandler implements AuthenticationSuccessH
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException{
         handle(httpServletRequest, httpServletResponse, authentication);
         clearAuthenticationAttributes(httpServletRequest);
+        httpServletRequest.getSession().setAttribute("token", "228lol");
     }
 
     private void handle(HttpServletRequest request,
@@ -46,14 +47,17 @@ public class EcareAuthenticationSuccessHandler implements AuthenticationSuccessH
         boolean isAdmin = false;
         Collection<? extends GrantedAuthority> authorities
                 = authentication.getAuthorities();
+        boolean stop = false;
         for (GrantedAuthority grantedAuthority : authorities) {
             if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
                 isUser = true;
-                break;
+                stop = true;
             } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
                 isAdmin = true;
-                break;
+                stop = true;
             }
+
+            if(stop) break;
         }
 
         if (isUser) {

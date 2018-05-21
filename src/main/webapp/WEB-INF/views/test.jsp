@@ -12,7 +12,7 @@
                     //Define & initialize vars
                     var table = $('<table id="table-body" class="table table-striped table-bordered" cellspacing="0" cellpadding="3" border="1"/>'),
                         thead = $('<thead/>'),
-                        th = $('<th/>')
+                        th = $('<th/>'),
                         tbody = $('<tbody/>'),
                         tr = $('<tr/>'),
                         td = $('<td/>');
@@ -43,13 +43,9 @@
         });
 
     </script>
-    <script>
-        function reload() {
-            location.reload(true);
-        }
-    </script>
 </head>
 <body>
+Hello!
 <div id="table"></div>
 </body>
 </html>

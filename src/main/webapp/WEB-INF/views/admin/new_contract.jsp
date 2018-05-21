@@ -6,7 +6,6 @@
 <html>
 <head>
     <title>New contract page</title>
-    <link rel="stylesheet" type="text/css" href="../../../resources/css/bootstrap.css">
     <jsp:include page="../stylesheet.jsp"/>
     <script type="text/javascript">
         function submitForm() {
@@ -59,7 +58,7 @@
     <div>
         <form name="New contract" id="new_contract" onsubmit="return submitForm()">
             <input id="ownersPassport" name="ownersPassport" type="text">
-            <input id="number" name="number" type="tel">
+            <input id="number" name="number" type="tel" pattern="[\+]\d{2}[\(]\d{2}[\)]\d{4}[\-]\d{4}">
             <select id="tariffs">
             </select>
             <input type="submit">

@@ -3,7 +3,9 @@
 <html>
 <head>
     <title>New option</title>
-    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.css">
+    <jsp:include page="../stylesheet.jsp"/>
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <script type="text/javascript">
         function submitForm(){
             var object = {};
@@ -14,10 +16,15 @@
             });
             var json = JSON.stringify(object);
             console.log(json);
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+            var headers = [];
+            headers[header] = token;
             $.ajax({
                 type: "POST",
                 url: "http://localhost:8081/api/options",
                 contentType : "application/json",
+                headers: headers,
                 data: json
             }).done(function(result){
                 myForm.reset();
