@@ -10,6 +10,7 @@ public class TariffDTO  {
     private Double cost;
     private Long id;
     private boolean archive;
+    private boolean hot;
 
     public boolean isArchive() {
         return archive;
@@ -51,13 +52,20 @@ public class TariffDTO  {
         this.id = id;
     }
 
+    public boolean isHot() {
+        return hot;
+    }
+
+    public void setHot(boolean hot) {
+        this.hot = hot;
+    }
 
     public static TariffDTO toDTO(Tariff tariff){
          TariffDTO dto = new TariffDTO();
          dto.setCost(tariff.getCost());
          dto.setName(tariff.getName());
          dto.setId(tariff.getId());
-
+         dto.setHot(tariff.getHot());
          return dto;
     }
 
@@ -66,7 +74,7 @@ public class TariffDTO  {
         tariff.setName(dto.getName());
         tariff.setCost(dto.getCost());
         tariff.setId(dto.getId());
-
+        tariff.setHot(dto.isHot());
         return tariff;
     }
 }

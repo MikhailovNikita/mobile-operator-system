@@ -6,11 +6,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import ru.tsystems.exceptions.BusinessException;
 
 
 @ControllerAdvice
 public class RestControllerAdvice extends ResponseEntityExceptionHandler {
     private static final Logger myLogger = Logger.getLogger(RestControllerAdvice.class);
+
+    @ExceptionHandler(BusinessException.class)
+    protected ResponseEntity<String> businessExceptionClass(final BusinessException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(UnsupportedOperationException.class)
     protected ResponseEntity<String> unsupportedOperationExceptionClass(final UnsupportedOperationException e){

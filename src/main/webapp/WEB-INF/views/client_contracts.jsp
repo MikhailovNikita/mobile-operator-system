@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>Your contracts</title>
-    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.css">
+    <jsp:include page="stylesheet.jsp"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         function showContract(id) {
@@ -17,7 +17,12 @@
             input.type = 'hidden';
             input.name = 'contractId';
             input.value = id;
+            var csrf_input = document.createElement('input');
+            csrf_input.type = 'hidden';
+            csrf_input.name = "${_csrf.parameterName}";
+            csrf_input.value = "${_csrf.token}";
             form.appendChild(input);
+            form.appendChild(csrf_input);
 
             form.submit();
         }

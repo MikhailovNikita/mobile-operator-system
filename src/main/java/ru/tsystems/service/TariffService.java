@@ -56,4 +56,8 @@ public class TariffService {
     public void changeOptions(Long tariffId, List<Long> optionIds) {
         throw new UnsupportedOperationException();
     }
+
+    public List<TariffDTO> getHotTariffs(){
+        return tariffDAO.getHotTariffs().stream().map(TariffDTO::toDTO).collect(Collectors.toList());
+    }
 }

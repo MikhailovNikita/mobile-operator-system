@@ -12,6 +12,12 @@ public class TariffDAOImpl extends GenericDAOImpl<Tariff, Long> implements Tarif
     @Override
     public List<Tariff> getActiveTariffs() {
         return entityManager.createQuery("SELECT t FROM Tariff t WHERE t.archive = FALSE")
-                     .getResultList();
+                .getResultList();
+    }
+
+    @Override
+    public List<Tariff> getHotTariffs() {
+        return entityManager.createQuery("SELECT t FROM Tariff t WHERE t.hot = TRUE")
+                .getResultList();
     }
 }

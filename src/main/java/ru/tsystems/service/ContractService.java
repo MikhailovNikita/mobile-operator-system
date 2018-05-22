@@ -1,12 +1,14 @@
 package ru.tsystems.service;
 
 
+import com.mysql.cj.mysqla.io.DebugBufferingPacketSender;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tsystems.dto.ContractDTO;
 import ru.tsystems.dto.OptionDTO;
+import ru.tsystems.exceptions.BusinessException;
 import ru.tsystems.persistence.dao.api.ContractDAO;
 import ru.tsystems.persistence.dao.api.OptionDAO;
 import ru.tsystems.persistence.dao.api.TariffDAO;
@@ -37,9 +39,21 @@ public class ContractService {
         return (contractDAO.getContractByNumber(number) != null);
     }
 
+
+    /**
+     * Creates new contract with specified tariff, owner, phone number and current date
+     *
+     * @param contractDTO not empty number that fits pattern,
+     *                    passport number of existing client,
+     *                    id of existing, non-archived tariff.
+     * @throws BusinessException if user with such passport doesn't exist.
+     */
     public void addNewContract(ContractDTO contractDTO) {
         Tariff tariff = tariffDAO.get(contractDTO.getTariffDTO().getId());
         User user = userDAO.findUserByPassport(contractDTO.getOwnersPassport());
+        if(user == null){
+            throw new BusinessException("No user with such passport");
+        }
         Contract contract = new Contract();
         contract.setTariff(tariff);
         contract.setUser(user);
@@ -48,13 +62,24 @@ public class ContractService {
         contractDAO.persist(contract);
     }
 
+    /**
+     * Finds contract by it's id
+     * @param id contract's identifier
+     * @return contract transformed in DTO
+     */
     public ContractDTO findContractById(Long id) {
         return ContractDTO.toDTO(contractDAO.get(id));
     }
 
-    public List<ContractDTO> getAllContracts(){
+
+    /**
+     * Returns  all contracts
+     * @return List of contracts transformed to DTO
+     */
+    public List<ContractDTO> getAllContracts() {
         return contractDAO.getAll().stream().map(ContractDTO::toDTO).collect(Collectors.toList());
     }
+
 
     public void userBlocksContract(Long id) {
         Contract contract = contractDAO.get(id);
@@ -82,7 +107,7 @@ public class ContractService {
 
     public void changeTariff(Long contractId, Long tariffId) {
         Contract contract = contractDAO.get(contractId);
-        if(contract.isBlockedByAdmin() || contract.isBlockedByUser()) return;
+        if (contract.isBlockedByAdmin() || contract.isBlockedByUser()) return;
 
         Tariff tariff = tariffDAO.get(tariffId);
         contract.setTariff(tariff);
@@ -99,8 +124,8 @@ public class ContractService {
         contract.getEnabledOptions().remove(option);
         contract.setEnabledOptions(new HashSet<>(
                 contract.getEnabledOptions().stream()
-                .filter(x -> !x.getRequiredOptions().contains(option))
-                .collect(Collectors.toList())));
+                        .filter(x -> !x.getRequiredOptions().contains(option))
+                        .collect(Collectors.toList())));
     }
 
     public List<OptionDTO> getOptionsForActivation(Long contractId) {
@@ -123,8 +148,8 @@ public class ContractService {
     public void enableOption(Long contractId, Long optionId) {
         Contract contract = contractDAO.get(contractId);
         TariffOption option = optionDAO.get(optionId);
-        if(contract.getEnabledOptions().containsAll(option.getRequiredOptions())
-                && Collections.disjoint(contract.getEnabledOptions(), option.getForbiddingOptions())){
+        if (contract.getEnabledOptions().containsAll(option.getRequiredOptions())
+                && Collections.disjoint(contract.getEnabledOptions(), option.getForbiddingOptions())) {
             contract.getEnabledOptions().add(option);
         }
     }

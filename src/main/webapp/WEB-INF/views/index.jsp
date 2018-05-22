@@ -11,7 +11,7 @@
 <body style="background-image: url('../resources/img/background.png'); background-size: cover">
 <jsp:include page="client_header.jsp"/>
 <div style="margin-top: 120px">
-    <h2>${sessionScope.name}adadad</h2>
+    <h2>This is your token: ${sessionScope.token}</h2>
 </div>
 </body>
 </html>

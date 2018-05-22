@@ -22,6 +22,17 @@ public class Tariff {
     @Column(nullable = false)
     private Boolean archive;
 
+    @Column(nullable = false)
+    private Boolean hot;
+
+    public Boolean getHot() {
+        return hot;
+    }
+
+    public void setHot(Boolean hot) {
+        this.hot = hot;
+    }
+
     @ManyToMany
     private Set<TariffOption> option = new HashSet<>();
 
@@ -37,6 +48,7 @@ public class Tariff {
         this.archive = archive;
         this.option = option;
         this.contract = contract;
+        this.hot = false;
     }
 
     public Boolean getArchive() {

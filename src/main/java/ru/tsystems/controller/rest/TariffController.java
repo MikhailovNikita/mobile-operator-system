@@ -33,5 +33,10 @@ public class TariffController {
         return new ResponseEntity<>("Tariff was added", HttpStatus.OK);
     }
 
+    @GetMapping("/hot")
+    public ResponseEntity<List<TariffDTO>> getHotTariffs(){
+        return new ResponseEntity<>(tariffService.getHotTariffs(), HttpStatus.OK);
+    }
+
 
 }

@@ -1,2 +1,3 @@
-Mobile operator system
 [![Build Status](https://travis-ci.org/MikhailovNikita/mobile-operator-system.svg?branch=master)](https://travis-ci.org/MikhailovNikita/mobile-operator-system)
+[![Code smells](https://sonarcloud.io/api/project_badges/measure?project=javaschool%3Aecare-app&metric=code_smells)](https://sonarcloud.io/project/issues?id=javaschool%3Aecare-app&resolved=false&types=CODE_SMELL)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=javaschool%3Aecare-app&metric=coverage)](https://sonarcloud.io/component_measures?id=javaschool%3Aecare-app&metric=coverage)
