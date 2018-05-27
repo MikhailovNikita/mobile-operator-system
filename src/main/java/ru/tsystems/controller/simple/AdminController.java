@@ -1,7 +1,5 @@
 package ru.tsystems.controller.simple;
 
-
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -47,74 +45,29 @@ public class AdminController {
         binder.setValidator(compoundValidator);
     }
 
-    private static final Logger logger = Logger.getLogger(AdminController.class);
+    @RequestMapping(method = RequestMethod.GET)
+    public String adminHomePage(){
+        return "admin/admin_home";
+    }
 
     @RequestMapping(value = "new_client", method = RequestMethod.GET)
-    public String getRegistrationPage(Model model) {
-        model.addAttribute("userDTO", new UserDTO());
-        return "admin/new_client";
+    public String getRegistrationPage() {
+        return "clearmin/admin/new_client";
     }
-
-    @RequestMapping(value = "new_client", method = RequestMethod.POST)
-    public String
-    registerClient(@Valid UserDTO userDTO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "admin/new_client";
-        }
-        userService.registerUser(userDTO);
-        return "redirect:/admin";
-    }
-
 
     @RequestMapping(value = "new_tariff", method = RequestMethod.GET)
-    public String getNewTariffPage(Model model) {
-        model.addAttribute("tariffDTO", new TariffDTO());
-        model.addAttribute("optionDTOList", optionService.getAllOptions());
-        return "admin/new_tariff";
-    }
-
-
-    @RequestMapping(value = "new_tariff", method = RequestMethod.POST)
-    public String addTariff(@Valid TariffDTO tariffDTO, BindingResult bindingResult, Model model) {
-        if(bindingResult.hasErrors()){
-            model.addAttribute("optionDTOList", optionService.getAllOptions());
-            return "admin/new_tariff";
-        }
-        tariffService.addNewTariff(tariffDTO);
-        return "redirect:/admin";
+    public String getNewTariffPage() {
+        return "clearmin/admin/new_tariff";
     }
 
     @RequestMapping(value = "new_contract", method = RequestMethod.GET)
-    public String getNewContractPage(Model model) {
-        List<TariffDTO> tariffs = tariffService.getAllTariffs();
-        model.addAttribute("tariffs", tariffs);
-        model.addAttribute("contractDTO", new ContractDTO());
-        return "admin/new_contract";
-    }
-
-    @RequestMapping(value = "new_contract", method = RequestMethod.POST)
-    public String addNewContract(@Valid ContractDTO contractDTO, BindingResult bindingResult, Model model){
-        if(bindingResult.hasErrors()){
-            model.addAttribute("tariffs", tariffService.getAllTariffs());
-            return "admin/new_contract";
-        }
-        contractService.addNewContract(contractDTO);
-        return "redirect:/admin";
+    public String newContractPage() {
+        return "clearmin/admin/new_contract";
     }
 
     @RequestMapping(value = "new_option", method = RequestMethod.GET)
-    public String addNewOption(Model model){
-        model.addAttribute("optionDTO", new OptionDTO());
-        return "admin/new_option";
-    }
-
-    @RequestMapping(value = "new_option", method = RequestMethod.POST)
-    public String addNewOption(@Valid OptionDTO optionDTO, BindingResult bindingResult, Principal principal){
-        if(bindingResult.hasErrors()){
-            return "admin/new_option";
-        }
-        optionService.addNewOption(optionDTO);
-        return "redirect:/admin";
+    public String addNewOption(){
+        return "clearmin/admin/new_option";
     }
 
     @RequestMapping(value = "options", method = RequestMethod.GET)
@@ -122,14 +75,8 @@ public class AdminController {
         return "admin/options";
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String adminHomePage(){
-        return "admin/admin_home";
-    }
-
     @RequestMapping(value = "forbid_options", method = RequestMethod.GET)
-    public String forbidOptionsGet(Model model){
-        model.addAttribute("optionsList", optionService.getAllOptions());
+    public String forbidOptionsGet(){
         return "admin/forbid_options";
     }
 
@@ -191,13 +138,40 @@ public class AdminController {
         return "admin/delete_tariff";
     }
 
-
-    @RequestMapping(value = "clients", method = RequestMethod.GET)
-    public String allClientsGet(Model model){
-        model.addAttribute("clientsList", userService.getAllClients());
-        return "admin/clients";
+    @RequestMapping(value = "test", method = RequestMethod.GET)
+    public String testPage(){
+        return "clearmin/admin/test";
     }
 
+    @RequestMapping(value = "all_clients", method = RequestMethod.GET)
+    public String allClientsPage(){
+        return "clearmin/admin/all_clients";
+    }
+
+    @RequestMapping(value = "find_client", method = RequestMethod.GET)
+    public String findClientPage(){
+        return "clearmin/admin/find_client";
+    }
+
+    @RequestMapping(value = "all_contracts", method = RequestMethod.GET)
+    public String allContractsPage(){
+        return "clearmin/admin/all_contracts";
+    }
+
+    @RequestMapping(value = "find_contract", method = RequestMethod.GET)
+    public String findContractPage(){
+        return "clearmin/admin/find_contract";
+    }
+
+    @RequestMapping(value = "all_tariffs", method = RequestMethod.GET)
+    public String allTariffsPage(){
+        return "clearmin/admin/all_tariffs";
+    }
+
+    @RequestMapping(value = "all_options", method = RequestMethod.GET)
+    public String allOptionsPage(){
+        return "clearmin/admin/all_options";
+    }
 
     @RequestMapping(value = "client_search", method = RequestMethod.GET)
     public String clientSearchGet(Model model){
@@ -224,7 +198,6 @@ public class AdminController {
     public String showContractPost(Model model,
                                    @RequestParam(name = "contractId") String contractId){
         ContractDTO contractDTO = contractService.findContractById(Long.valueOf(contractId));
-        logger.debug("Loaded contract has " + contractDTO.getOptions().size() + " enabled options");
         model.addAttribute("contract", contractDTO);
         return "admin/show_contract";
     }

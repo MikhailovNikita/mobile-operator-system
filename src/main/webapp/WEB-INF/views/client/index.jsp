@@ -4,14 +4,13 @@
 <html>
 <head>
     <title>eCare</title>
-    <link rel="stylesheet" type="text/css" href="../resources/css/bootstrap.css">
+    <jsp:include page="../util/stylesheet.jsp"/>
 
 </head>
 
-<body style="background-image: url('../resources/img/background.png'); background-size: cover">
+<body style="background-image: url('../../resources/img/background.png'); background-size: cover">
 <jsp:include page="client_header.jsp"/>
 <div style="margin-top: 120px">
-    <h2>This is your token: ${sessionScope.token}</h2>
 </div>
 </body>
 </html>

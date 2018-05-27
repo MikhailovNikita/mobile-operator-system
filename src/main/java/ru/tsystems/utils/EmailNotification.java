@@ -1,6 +1,5 @@
 package ru.tsystems.utils;
 
-import org.apache.log4j.Logger;
 
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -10,7 +9,6 @@ import java.util.Properties;
  * Util for sending emails
  */
 public class EmailNotification {
-    private static final Logger logger = Logger.getLogger(EmailNotification.class);
 
     /**
      * method for sending password via email
@@ -35,9 +33,8 @@ public class EmailNotification {
             message.setContent("Dear " + user + "!\n Welcome to OPERATOR_NAME!\n" +
                     " Your password: " + password, "text/html");
             Transport.send(message);
-            logger.info("Sent email to " + to);
         } catch (MessagingException e) {
-            logger.info(e);
+
         }
     }
 

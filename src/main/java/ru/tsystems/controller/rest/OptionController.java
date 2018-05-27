@@ -5,11 +5,9 @@ package ru.tsystems.controller.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.tsystems.dto.OptionDTO;
 import ru.tsystems.service.OptionService;
-import ru.tsystems.utils.JMSProducer;
 
 import java.util.List;
 
@@ -19,8 +17,6 @@ import java.util.List;
 public class OptionController {
     @Autowired
     private OptionService optionService;
-    @Autowired
-    private JMSProducer jmsProducer;
 
     @GetMapping({"", "/"})
     public ResponseEntity<List<OptionDTO>> get(){
@@ -44,7 +40,6 @@ public class OptionController {
         return ResponseEntity.ok().build();
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/{id1}/forbid/{id2}")
     public ResponseEntity<String> addForbiddingRule(@PathVariable long id1, @PathVariable long id2){
         optionService.addForbiddingOptions(String.valueOf(id1), String.valueOf(id2));

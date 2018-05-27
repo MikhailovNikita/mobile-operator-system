@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>Your contracts</title>
-    <jsp:include page="stylesheet.jsp"/>
+    <jsp:include page="../util/stylesheet.jsp"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         function showContract(id) {

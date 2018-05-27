@@ -12,7 +12,7 @@
     <a class="navbar-brand" href="/"><span class="fa fa-home"></span>Ecare</a>
     <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-            <a class="nav-link" href="/client/contracts">Contracts</a>
+            <a class="nav-link" href="/client">Acc</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/tariffs">Tariffs</a>
@@ -25,10 +25,22 @@
         </ul>
     </sec:authorize>
 
-    <sec:authorize access="hasRole('ROLE_USER')">
-        <ul class="navbar-nav ml-1">
-            <sec:authentication var="user" property="principal"/>
-            <li><a href="/logout"><span class="fa fa-user"></span>${user.username}</a></li>
+    <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')">
+        <sec:authentication var="user" property="principal"/>
+        <ul class="nav-item ml-1 dropdown">
+            <a class="nav-link dropdown-toggle" style="display:none" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">${user.username}</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Another action</a>
+
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </ul>
+
+
         </ul>
     </sec:authorize>
 

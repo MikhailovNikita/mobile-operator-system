@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.tsystems.dto.TariffDTO;
 import ru.tsystems.service.TariffService;
+import ru.tsystems.utils.JMSProducer;
 
 import java.util.List;
 
@@ -15,6 +16,8 @@ import java.util.List;
 public class TariffController {
     @Autowired
     private TariffService tariffService;
+    @Autowired
+    private JMSProducer jmsProducer;
 
     @GetMapping({"","/"})
     public ResponseEntity<List<TariffDTO>> getTariffs(){

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserDAO extends GenericDAO<User, Long> {
     User findUserByPassport(String passport);
-    User findUserByEmail(String email);
     List<User> getAllClients();
     User getClientByNumber(String number);
+    User findUserByEmail(String email);
 }

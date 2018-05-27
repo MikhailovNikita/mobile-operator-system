@@ -2,6 +2,7 @@ package ru.tsystems.dto;
 
 
 import ru.tsystems.persistence.entity.Contract;
+import ru.tsystems.persistence.entity.TariffOption;
 
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,7 @@ public class ContractDTO {
     private String contractId;
     private String ownersPassport;
     private String number;
+    private Double monthlyPayment;
     private TariffDTO tariffDTO;
     private String tariffName;
     private Boolean blockedByUser;
@@ -92,6 +94,14 @@ public class ContractDTO {
         this.tariffName = tariffName;
     }
 
+    public Double getMonthlyPayment() {
+        return monthlyPayment;
+    }
+
+    public void setMonthlyPayment(Double monthlyPayment) {
+        this.monthlyPayment = monthlyPayment;
+    }
+
     @Override
     public String toString() {
         return "ContractDTO{" +
@@ -100,6 +110,7 @@ public class ContractDTO {
                 ", tariffId=" + (tariffDTO != null ? tariffDTO.getId() : null) +
                 '}';
     }
+
 
     public static ContractDTO toDTO(Contract contract) {
         ContractDTO dto = new ContractDTO();
@@ -115,7 +126,11 @@ public class ContractDTO {
                 .stream()
                 .map(OptionDTO::toDTO)
                 .collect(Collectors.toList()));
-
+        dto.setMonthlyPayment(contract.getTariff().getCost() +
+                contract.getEnabledOptions()
+                        .stream()
+                        .mapToDouble(TariffOption::getCost)
+                        .sum());
         return dto;
     }
 

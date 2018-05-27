@@ -23,6 +23,8 @@
                      max-age="6000" />
     </mvc:cors>
 
+
+
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/views/" />

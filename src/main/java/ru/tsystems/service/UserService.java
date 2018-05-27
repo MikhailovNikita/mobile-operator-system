@@ -1,7 +1,6 @@
 package ru.tsystems.service;
 
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,15 +26,13 @@ public class UserService {
     @Autowired
     private ContractDAO contractDAO;
 
-    private static final Logger logger = Logger.getLogger(UserService.class);
 
     public void registerUser(UserDTO userDTO) {
         User user = userDTO.toEntity();
-        user.setBlocked(false);
         user.setRole(UserRole.ROLE_USER);
+        user.setBlocked(false);
         String password = PasswordGenerator.generatePassword();
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        logger.info("Generated password " + password + " for user " + user.getEmail());
         user.setPassword(bCryptPasswordEncoder.encode(password));
         userDAO.persist(user);
         EmailNotification.sendPassword(user.getEmail(), user.getName() + " " + user.getLastName(),
@@ -64,7 +61,6 @@ public class UserService {
 
     public List<ContractDTO> getAllClientsContracts(String email) {
         User user = userDAO.findUserByEmail(email);
-        logger.debug(user.getContracts().size() + " contracts found for user " + user.getEmail());
         return user.getContracts().stream().map(ContractDTO::toDTO).collect(Collectors.toList());
     }
 

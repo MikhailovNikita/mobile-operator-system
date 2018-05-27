@@ -1,7 +1,6 @@
 package ru.tsystems.controller.simple;
 
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,14 +28,13 @@ public class ClientController {
     @Autowired
     private TariffService tariffService;
 
-    private static final Logger logger = Logger.getLogger(ClientController.class);
 
     @RequestMapping
     public String getHomeClientPage(Model model, Principal principal){
         UserDTO user = userService.findUserByEmail(principal.getName());
 
         model.addAttribute("name", user.getName() + " " + user.getLastName());
-        return "client_home";
+        return "client/client_home";
     }
 
 
@@ -44,7 +42,7 @@ public class ClientController {
     public String getContractsPage(Model model, Principal principal){
         List<ContractDTO> contracts = userService.getAllClientsContracts(principal.getName());
         model.addAttribute("contractsList", contracts);
-        return "client_contracts";
+        return "client/client_contracts";
     }
 
 
@@ -53,14 +51,13 @@ public class ClientController {
                                @ModelAttribute("contractDTO") ContractDTO contractDTO){
         model.addAttribute("tariffs", tariffService.getAllTariffs());
         model.addAttribute("contractDTO", contractService.findContractById(Long.valueOf(contractDTO.getContractId())));
-        return "client_contracts";
+        return "client/client_contracts";
     }
 
     @RequestMapping(value = "block_contract", method = RequestMethod.POST)
     public String blockContract(Model model,
                                 @RequestParam(name = "contractId") String contractId){
 
-        logger.debug("User blocks contract with id " + contractId);
         contractService.userBlocksContract(Long.valueOf(contractId));
         return "redirect:/client/contracts";
     }
@@ -69,7 +66,6 @@ public class ClientController {
     public String unblockContract(Model model,
                                   @RequestParam(name = "contractId") String contractId){
 
-        logger.debug("User unblocks contract with id " + contractId);
         contractService.userUnblocksContract(Long.valueOf(contractId));
         return "redirect:/client/contracts";
     }
@@ -77,9 +73,8 @@ public class ClientController {
     @RequestMapping(value = "show_contract", method = RequestMethod.POST)
     public String showContract(Model model, @RequestParam(name = "contractId") String contractId){
         ContractDTO contractDTO = contractService.findContractById(Long.valueOf(contractId));
-        logger.debug("Loaded contract has " + contractDTO.getOptions().size() + " enabled options");
         model.addAttribute("contract", contractDTO);
-        return "show_contract";
+        return "client/show_contract";
     }
 
     @RequestMapping(value = "tariffs_for_change", method = RequestMethod.POST)

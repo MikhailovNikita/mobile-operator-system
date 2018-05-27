@@ -2,11 +2,15 @@
 <html>
 <head>
 
-    <jsp:include page="stylesheet.jsp"/>
+    <jsp:include page="../util/stylesheet.jsp"/>
 </head>
 <body>
 <div class="container">
-    <div class="card" style="position: absolute; top:40%; left:50%;
+    <div style="position: absolute; top:20%; left:50%;
+                                transform: translate(-50%,-50%);">
+        <img src="../../resources/img/logo.jpg"/>
+    </div>
+    <div class="card" style="position: absolute; top:60%; left:50%;
                                 transform: translate(-50%,-50%); width: 300px">
         <article class="card-body">
             <h4 class="card-title mb-4 mt-1">
@@ -30,7 +34,6 @@
                 </div>
                 <div class="form-group">
                     <a style="color: red">${errorMessage}</a>
-                    <c:out value='${sessionScope.token}'/>
                 </div>
 
             </form>

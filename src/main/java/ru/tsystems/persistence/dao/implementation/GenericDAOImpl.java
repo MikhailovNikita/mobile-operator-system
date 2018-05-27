@@ -1,6 +1,5 @@
 package ru.tsystems.persistence.dao.implementation;
 
-import org.apache.log4j.Logger;
 import ru.tsystems.persistence.dao.api.GenericDAO;
 
 import javax.persistence.EntityManager;
@@ -17,7 +16,6 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
     @PersistenceContext
     protected EntityManager entityManager;
 
-    private static final Logger logger = Logger.getLogger(UserDAOImpl.class);
 
 
     @SuppressWarnings("unchecked")
@@ -31,7 +29,6 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
         try {
             entityManager.persist(entity);
         } catch (PersistenceException e) {
-            logger.debug(e.toString());
             throw e;
         }
     }
@@ -41,7 +38,7 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
         try {
             entityManager.remove(entity);
         } catch (PersistenceException e) {
-            logger.debug(e.toString());
+
         }
     }
 
@@ -50,7 +47,6 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
         try {
             entityManager.merge(entity);
         } catch (PersistenceException e) {
-            logger.debug(e.toString());
         }
     }
 
@@ -59,7 +55,7 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
         try {
             return entityManager.find(entityClass, id);
         } catch (PersistenceException e) {
-            logger.debug(e.toString());
+
             return null;
         }
     }
@@ -69,7 +65,7 @@ public abstract class GenericDAOImpl<E, K> implements GenericDAO<E, K> {
         try{
             return entityManager.createNamedQuery(entityClass.getSimpleName() + ".getAll", entityClass).getResultList();
         }catch (PersistenceException e){
-            logger.debug(e.toString());
+
             return new ArrayList<>(0);
         }
 

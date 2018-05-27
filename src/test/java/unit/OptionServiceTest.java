@@ -2,13 +2,12 @@ package unit;
 
 
 import org.junit.*;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import ru.tsystems.exceptions.BusinessException;
+import ru.tsystems.exceptions.BusinessLogicException;
 import ru.tsystems.persistence.dao.api.OptionDAO;
 import ru.tsystems.persistence.entity.TariffOption;
 import ru.tsystems.service.OptionService;
@@ -56,8 +55,7 @@ public class OptionServiceTest {
     }
 
 
-    @Test(expected = BusinessException.class)
-    @Ignore("Not implemented yet")
+    @Test(expected = BusinessLogicException.class)
     /* This test is for the case when you create a chain of requiring rules
      * which, eventually, loops.
      * e.g.: A->B, B->C, C->A. In this case all the options from a loop become inaccessible.
@@ -68,8 +66,7 @@ public class OptionServiceTest {
         optionService.addRequiredOption("3", "1");
     }
 
-    @Test(expected = BusinessException.class)
-    @Ignore("Not implemented yet")
+    @Test(expected = BusinessLogicException.class)
     /*
      * It's not possible to apply both requiring and forbidding rules to
      * the same options.
@@ -81,15 +78,13 @@ public class OptionServiceTest {
         optionService.addForbiddingOptions("1", "2");
     }
 
-    @Test(expected = BusinessException.class)
-    @Ignore("Not implemented yet")
+    @Test(expected = BusinessLogicException.class)
     public void creatingExistingRequiringRule(){
         optionService.addRequiredOption("1", "2");
         optionService.addRequiredOption("1", "2");
     }
 
-    @Test(expected = BusinessException.class)
-    @Ignore("Not implemented yet")
+    @Test(expected = BusinessLogicException.class)
     public void creatingExistingForbiddingRule(){
         optionService.addForbiddingOptions("1", "2");
         optionService.addForbiddingOptions("1", "2");

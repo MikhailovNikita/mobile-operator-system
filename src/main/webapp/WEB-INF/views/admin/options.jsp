@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Options page</title>
-    <jsp:include page="../stylesheet.jsp"/>
+    <jsp:include page="../util/stylesheet.jsp"/>
     <script>
         $(document).ready(function() {
 
