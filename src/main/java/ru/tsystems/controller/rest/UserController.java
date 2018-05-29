@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.tsystems.dto.UserDTO;
 import ru.tsystems.service.UserService;
+import ru.tsystems.utils.EmailNotification;
 
 import java.util.List;
 
@@ -28,8 +29,11 @@ public class UserController {
 
     @PostMapping({"", "/"})
     public ResponseEntity<String> createClient(@RequestBody UserDTO userDTO){
-        userService.registerUser(userDTO);
+        String password = userService.registerUser(userDTO);
+        EmailNotification.sendPassword(userDTO.getEmail(), userDTO.getName() + " " + userDTO.getLastName(),
+                password);
         return new ResponseEntity<>("Client successfully registered", HttpStatus.OK);
+
     }
 
 }

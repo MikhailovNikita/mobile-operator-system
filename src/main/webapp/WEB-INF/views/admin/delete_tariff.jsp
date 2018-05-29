@@ -8,7 +8,7 @@
     <form method="POST" action="/admin/delete_tariff">
         <select name="tariffId">
             <c:forEach var="item" items="${tariffList}">
-                <option value="${item.id}">${item.name}</option>
+                <supportedOptions value="${item.id}">${item.name}</supportedOptions>
                 <p>${item.cost}</p>
             </c:forEach>
         </select>

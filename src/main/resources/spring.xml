@@ -7,7 +7,6 @@
 
     <context:component-scan base-package="ru.tsystems"/>
     <tx:annotation-driven/>
-    <aop:aspectj-autoproxy/>
 
     <bean id="ecareEMF" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
@@ -39,33 +38,4 @@
         <property name="entityManagerFactory" ref="ecareEMF"/>
     </bean>
 
-    <bean id="clientValidator"
-          class="ru.tsystems.validators.ClientFormValidator"/>
-
-    <bean id="tariffValidator"
-          class="ru.tsystems.validators.TariffFormValidator"/>
-
-    <bean id="optionValidator"
-          class="ru.tsystems.validators.OptionFormValidator"/>
-
-    <bean id="contractValidator"
-          class="ru.tsystems.validators.ContractFormValidator"/>
-
-    <bean id="adminCompoundValidator"
-          class="ru.tsystems.validators.AdminCompoundValidator">
-        <constructor-arg>
-            <list>
-                <ref bean = "clientValidator"/>
-                <ref bean = "tariffValidator"/>
-                <ref bean = "optionValidator"/>
-                <ref bean = "contractValidator"/>
-            </list>
-        </constructor-arg>
-    </bean>
-
-    <bean id="messageSource"
-          class=" org.springframework.context.support.ReloadableResourceBundleMessageSource ">
-        <property name="basename" value="classpath:message" />
-        <property name="defaultEncoding" value="UTF-8" />
-    </bean>
 </beans>

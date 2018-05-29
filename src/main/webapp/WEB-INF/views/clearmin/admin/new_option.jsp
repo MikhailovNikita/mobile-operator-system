@@ -23,7 +23,7 @@
     <div class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-body">
-                <jsp:include page="../../admin/new_option_form.jsp"/>
+                <jsp:include page="../form_templates/new_option_form.jsp"/>
             </div>
         </div>
     </div>

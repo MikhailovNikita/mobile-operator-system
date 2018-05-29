@@ -20,4 +20,12 @@ public class TariffDAOImpl extends GenericDAOImpl<Tariff, Long> implements Tarif
         return entityManager.createQuery("SELECT t FROM Tariff t WHERE t.hot = TRUE")
                 .getResultList();
     }
+
+    @Override
+    public Tariff getByName(String name) {
+        List<Tariff> tariffs = entityManager.createQuery("SELECT t FROM Tariff t WHERE t.name=:name")
+                .setParameter("name", name).getResultList();
+        if(tariffs.isEmpty()) return null;
+        return tariffs.get(0);
+    }
 }

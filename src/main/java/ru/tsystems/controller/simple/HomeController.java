@@ -23,7 +23,7 @@ public class HomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(){
-        return "client/index";
+        return "redirect:/login";
     }
 
     @RequestMapping(value = "tariffs", method = RequestMethod.GET)

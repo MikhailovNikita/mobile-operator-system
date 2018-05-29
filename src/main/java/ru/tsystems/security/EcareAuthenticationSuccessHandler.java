@@ -21,7 +21,6 @@ public class EcareAuthenticationSuccessHandler implements AuthenticationSuccessH
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException{
         handle(httpServletRequest, httpServletResponse, authentication);
         clearAuthenticationAttributes(httpServletRequest);
-        httpServletRequest.getSession().setAttribute("token", "228lol");
     }
 
     private void handle(HttpServletRequest request,
@@ -56,9 +55,9 @@ public class EcareAuthenticationSuccessHandler implements AuthenticationSuccessH
         }
 
         if (isUser) {
-            return "/client/contracts";
+            return "/client";
         } else if (isAdmin) {
-            return "/admin";
+            return "/admin/new_client";
         } else {
             throw new IllegalStateException();
         }

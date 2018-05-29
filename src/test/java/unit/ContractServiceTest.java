@@ -6,6 +6,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import ru.tsystems.dto.ContractDTO;
+import ru.tsystems.exceptions.BusinessLogicException;
 import ru.tsystems.persistence.dao.api.ContractDAO;
 import ru.tsystems.persistence.dao.api.OptionDAO;
 import ru.tsystems.persistence.dao.api.TariffDAO;
@@ -116,7 +118,7 @@ public class ContractServiceTest {
     }
 
 
-    @Test
+    @Test(expected = BusinessLogicException.class)
     public void testIfContractBlockedByAdminIsImmutable(){
         contractService.adminBlocksContract(1L);
         contractService.adminBlocksContract(2L);
@@ -131,10 +133,9 @@ public class ContractServiceTest {
 
         //can't enable option
         contractService.enableOption(2L, 2L);
-        assertTrue(setsAreEqual(optionSet2, contract2.getEnabledOptions()));
     }
 
-    @Test
+    @Test(expected = BusinessLogicException.class)
     public void testIfContractBlockedByUserIsImmutable(){
         contractService.userBlocksContract(1L);
         contractService.userBlocksContract(2L);
@@ -145,11 +146,17 @@ public class ContractServiceTest {
 
         //can't disable option
         contractService.disableOption(1L, 1L);
-        assertTrue(setsAreEqual(optionSet, contract1.getEnabledOptions()));
 
         //can't enable option
         contractService.enableOption(2L, 2L);
-        assertTrue(setsAreEqual(optionSet2, contract2.getEnabledOptions()));
+
+    }
+
+    @Test(expected = BusinessLogicException.class)
+    public void createInvalidContract(){
+        ContractDTO contractDTO = new ContractDTO();
+        contractDTO.setNumber("322");
+        contractService.addNewContract(contractDTO);
     }
 
     public <E> boolean setsAreEqual(Set<E> set1, Set<E> set2){

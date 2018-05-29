@@ -8,10 +8,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import ru.tsystems.exceptions.BusinessLogicException;
+import ru.tsystems.persistence.dao.api.ContractDAO;
 import ru.tsystems.persistence.dao.api.OptionDAO;
 import ru.tsystems.persistence.entity.TariffOption;
 import ru.tsystems.service.OptionService;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +22,8 @@ import java.util.Set;
 public class OptionServiceTest {
     @Mock
     private OptionDAO optionDAO;
+    @Mock
+    private ContractDAO contractDAO;
 
     @InjectMocks
     private OptionService optionService = new OptionService();
@@ -38,18 +42,19 @@ public class OptionServiceTest {
         Mockito.when(optionDAO.get(1L)).thenReturn(optionA);
         Mockito.when(optionDAO.get(2L)).thenReturn(optionB);
         Mockito.when(optionDAO.get(3L)).thenReturn(optionX);
+        Mockito.when(contractDAO.getAll()).thenReturn(new ArrayList<>());
     }
 
     @Test
     public void testAddingForbiddingRule(){
-        optionService.addForbiddingOptions("1", "2");
+        optionService.addForbiddingOptions(1L, 2L);
         Assert.assertTrue(setsAreEqual(optionA.getForbiddingOptions(), new HashSet<>(Arrays.asList(optionB))));
         Assert.assertTrue(setsAreEqual(optionB.getForbiddingOptions(), new HashSet<>(Arrays.asList(optionA))));
     }
 
     @Test
     public void testAddingRequiringRule(){
-        optionService.addRequiredOption("1", "2");
+        optionService.addRequiredOption(1L, 2L);
         Assert.assertTrue(setsAreEqual(optionA.getRequiredOptions(), new HashSet<>(Arrays.asList(optionB))));
         Assert.assertTrue(optionB.getRequiredOptions().isEmpty());
     }
@@ -61,9 +66,9 @@ public class OptionServiceTest {
      * e.g.: A->B, B->C, C->A. In this case all the options from a loop become inaccessible.
      */
     public void loopOfRequiringRules(){
-        optionService.addRequiredOption("1", "2");
-        optionService.addRequiredOption("2", "3");
-        optionService.addRequiredOption("3", "1");
+        optionService.addRequiredOption(1L, 2L);
+        optionService.addRequiredOption(2L, 3L);
+        optionService.addRequiredOption(3L, 1L);
     }
 
     @Test(expected = BusinessLogicException.class)
@@ -74,20 +79,20 @@ public class OptionServiceTest {
      * Congratulations! Option A is not accessible now!
      */
     public void bothRulesForSameOptions(){
-        optionService.addRequiredOption("1", "2");
-        optionService.addForbiddingOptions("1", "2");
+        optionService.addRequiredOption(1L, 2L);
+        optionService.addForbiddingOptions(1L, 2L);
     }
 
     @Test(expected = BusinessLogicException.class)
     public void creatingExistingRequiringRule(){
-        optionService.addRequiredOption("1", "2");
-        optionService.addRequiredOption("1", "2");
+        optionService.addRequiredOption(1L, 2L);
+        optionService.addRequiredOption(1L, 2L);
     }
 
     @Test(expected = BusinessLogicException.class)
     public void creatingExistingForbiddingRule(){
-        optionService.addForbiddingOptions("1", "2");
-        optionService.addForbiddingOptions("1", "2");
+        optionService.addForbiddingOptions(1L, 2L);
+        optionService.addForbiddingOptions(1L, 2L);
     }
 
 

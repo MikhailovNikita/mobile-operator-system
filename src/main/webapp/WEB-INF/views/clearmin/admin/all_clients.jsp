@@ -18,12 +18,14 @@
 <jsp:include page="admin_header.jsp"/>
 <div id="global">
     <div class="container-fluid cm-container-white">
-        <h2 style="margin-top:0;">Add new client</h2>
+        <h2 style="margin-top:0;">All clients</h2>
     </div>
     <div class="container-fluid">
         <div class="panel panel-default">
-            <div class="panel-body" id="table-container">
+            <div class="panel-body" id="tariffs-container">
+                <div class="container" id="table-container" style="margin-left: -20%">
 
+                </div>
             </div>
         </div>
     </div>
@@ -42,7 +44,7 @@
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $.getJSON('/api/clients', function (response) {
             console.log(response);
 
@@ -62,16 +64,17 @@
             table.append(thead);
             $('#table-container').html(table);
 
-            $('#table-body').dataTable({
+            var table = $('#table-body').dataTable({
                 "data": response,
-                "bInfo": false,
                 "columns": [
                     {"data": "name"},
                     {"data": "lastName"},
-                    {"data": "birthDate"},
+                    {"data": "email"},
                     {"data": "passport"}
-                ]
+                ],
             })
+
+
         })
 
     })

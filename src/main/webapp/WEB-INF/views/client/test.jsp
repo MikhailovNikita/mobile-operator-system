@@ -40,7 +40,7 @@
     <div class="container-fluid">
         <div class="panel panel-default">
             <div class="panel-body">
-                <jsp:include page="../admin/new_client_form.jsp"/>
+                <jsp:include page="../clearmin/form_templates/new_client_form.jsp"/>
                 <link rel="stylesheet" href="../../resources/css/sweet-modal/jquery.sweet-modal.min.css"/>
                 <script src="../../resources/js/sweet-modal/jquery.sweet-modal.min.js"></script>
             </div>

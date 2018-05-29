@@ -11,14 +11,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <script>
-        // var $myGroup = $('#page-content-wrapper');
-        // $myGroup.on('show.bs.collapse', '.collapse', function () {
-        //     console.log('Jesus Christ')
-        //     $myGroup.find('.collapse.in').collapse('hide');
-        // });
-
-    </script>
     <style>
 
         #sidebar-wrapper {
@@ -116,7 +108,7 @@
             <li>
                 <a data-toggle="collapse" data-target="#newOptionCollapse" role="button"
                    data-parent="#wrapper">
-                    New option
+                    New supportedOptions
                 </a>
             </li>
 
@@ -133,16 +125,16 @@
     <!-- Page Content -->
     <div id="page-content-wrapper" style="margin: 10px; background-color: lightgrey">
         <div class="collapse show" id="newUserCollapse">
-            <jsp:include page="new_client_form.jsp"/>
+            <jsp:include page="../clearmin/form_templates/new_client_form.jsp"/>
         </div>
         <div class="collapse" id="newContractCollapse">
-            <jsp:include page="new_contract_form.jsp"/>
+            <jsp:include page="../clearmin/form_templates/new_contract_form.jsp"/>
         </div>
         <div class="collapse" id="newOptionCollapse">
-            <jsp:include page="new_option_form.jsp"/>
+            <jsp:include page="../clearmin/form_templates/new_option_form.jsp"/>
         </div>
         <div class="collapse" id="newTariffCollapse">
-            <jsp:include page="new_tariff_form.jsp"/>
+            <jsp:include page="../clearmin/form_templates/new_tariff_form.jsp"/>
         </div>
         <div class="collapse">
             <jsp:include page="user_search.jsp"/>
@@ -208,7 +200,7 @@
 <%--<div>--%>
 <%--<h4>Options</h4>--%>
 <%--<a href="/admin/new_option" class="btn btn-info" style="text-transform: none" role="button">--%>
-<%--<span class="fa fa-plus"></span> New option--%>
+<%--<span class="fa fa-plus"></span> New supportedOptions--%>
 <%--</a>--%>
 <%--<a href="/admin/forbid_options" class="btn btn-info" style="text-transform: none" role="button">--%>
 <%--<span class="fa fa-times"></span> Forbid options--%>

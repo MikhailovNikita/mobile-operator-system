@@ -64,4 +64,14 @@ public class OptionDTO {
 
         return dto;
     }
+
+    @Override
+    public String toString() {
+        return "OptionDTO{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+                ", accessCost=" + accessCost +
+                '}';
+    }
 }

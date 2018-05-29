@@ -133,14 +133,14 @@
                     <th style="width: 10%">Action</th>
                 </tr>
                 </thead>
-                <c:forEach items="${contract.options}" var="option">
+                <c:forEach items="${contract.options}" var="supportedOptions">
                     <tr>
-                        <td>${option.name}</td>
-                        <td>${option.cost}</td>
-                        <td>${option.accessCost}</td>
+                        <td>${supportedOptions.name}</td>
+                        <td>${supportedOptions.cost}</td>
+                        <td>${supportedOptions.accessCost}</td>
                         <td>
                             <button class="btn btn-danger" name="disableOption"
-                                    onclick="disableOption(${contract.contractId}, ${option.id},
+                                    onclick="disableOption(${contract.contractId}, ${supportedOptions.id},
                                         ${contract.blockedByUser || contract.blockedByAdmin})">
                                 Disable
                             </button>
@@ -152,7 +152,7 @@
         <div>
             <form method="POST" action="/admin/options_for_activation">
                 <input type="hidden" name="contractId" value="${contract.contractId}"/>
-                <button class="btn btn-success" type="submit">Activate new option</button>
+                <button class="btn btn-success" type="submit">Activate new supportedOptions</button>
             </form>
         </div>
     </div>

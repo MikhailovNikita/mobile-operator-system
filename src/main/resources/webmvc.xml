@@ -14,7 +14,7 @@
     <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />
     
     <mvc:cors>
-        <mvc:mapping path="/api/**"
+        <mvc:mapping path="/api/tariffs/**"
                      allowed-origins="*"
                      allowed-methods="GET"
                      allowed-headers="Content-Type"

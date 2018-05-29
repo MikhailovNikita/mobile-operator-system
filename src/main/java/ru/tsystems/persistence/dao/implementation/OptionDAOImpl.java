@@ -11,7 +11,7 @@ public class OptionDAOImpl extends GenericDAOImpl<TariffOption, Long> implements
     @Override
     public TariffOption findByName(String name) {
         try{
-            return (TariffOption) entityManager.createQuery("SELECT TariffOption to FROM TariffOption WHERE name=:name")
+            return (TariffOption) entityManager.createQuery("SELECT to FROM TariffOption to WHERE to.name=:name")
                     .setParameter("name", name)
                     .getSingleResult();
         }catch (NoResultException e){

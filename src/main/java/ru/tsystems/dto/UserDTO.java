@@ -90,7 +90,7 @@ public class UserDTO {
                 "name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
+                ", password='" + "NOPE" + '\'' +
                 ", passport='" + passport + '\'' +
                 ", address='" + address + '\'' +
                 '}';

@@ -1,6 +1,7 @@
 package ru.tsystems.controller.simple;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,22 +14,26 @@ public class ErrorController {
     @RequestMapping(value = "errors", method = RequestMethod.GET)
     public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
 
-        String errorMsg;
         int httpErrorCode = getErrorCode(httpRequest);
+        final String MESSAGE = "message";
 
+        ModelAndView errorPage = new ModelAndView("util/error");
         switch (httpErrorCode) {
             case 403: {
-                return new ModelAndView();
+                errorPage.addObject(MESSAGE, "Whoops! You have no rights to watch this page." );
+                break;
             }
             case 404: {
-                return new ModelAndView("error/page404");
+                errorPage.addObject(MESSAGE, "The page is not found. Where did you get that link?" );
+                break;
             }
             //Considered to be 500 but can be any other error
             default: {
-                return new ModelAndView("error/page500");
+                errorPage.addObject(MESSAGE, "Whoops! Something went really wrong. Please contact me at nnikita.mikhailov@yandex.ru" );
             }
         }
 
+        return errorPage;
     }
 
     private int getErrorCode(HttpServletRequest httpRequest) {

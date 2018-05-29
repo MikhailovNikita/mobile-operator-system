@@ -1,44 +1,46 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-
-    <jsp:include page="../util/stylesheet.jsp"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="../../resources/assets/css/bootstrap-clearmin.min.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/assets/css/roboto.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/assets/css/font-awesome.min.css">
+    <title>Login page</title>
+    <style></style>
 </head>
-<body>
-<div class="container">
-    <div style="position: absolute; top:20%; left:50%;
-                                transform: translate(-50%,-50%);">
-        <img src="../../resources/img/logo.jpg"/>
-    </div>
-    <div class="card" style="position: absolute; top:60%; left:50%;
-                                transform: translate(-50%,-50%); width: 300px">
-        <article class="card-body">
-            <h4 class="card-title mb-4 mt-1">
-                Sign in
-            </h4>
-            <form role="form" method="POST" action="/login">
-                <div class="form-group">
-                    <label>Your email</label>
-                    <input id="login_field" name="username" class="form-control" placeholder="you@example.com" type="email">
+<body class="cm-login">
+
+<div class="text-center" style="padding:90px 0 30px 0;background:#fff;border-bottom:1px solid #ddd">
+    <img src="../../resources/assets/img/logo.png" width="300" height="45">
+</div>
+
+<div class="col-sm-6 col-md-4 col-lg-3" style="margin:40px auto; float:none;">
+    <form method="post" action="/login">
+        <div class="col-xs-12">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-fw fa-user"></i></div>
+                    <input id="login_field" type="text" name="username" class="form-control" placeholder="Username">
                 </div>
-                <div class="form-group">
-                    <a class="float-right" href="/password_reset">Forgot?</a>
-                    <label>Your password</label>
-                    <input id="password_field" name="password" class="form-control" placeholder="******" type="password">
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-fw fa-lock"></i></div>
+                    <input id="password_field" type="password" name="password" class="form-control" placeholder="Password">
                 </div>
-                <input type="hidden"
-                       name="${_csrf.parameterName}"
-                       value="${_csrf.token}"/>
-                <div class="form-group">
-                    <button id="login_submit" type="submit" class="btn btn-dark btn-block">Sign in</button>
-                </div>
-                <div class="form-group">
-                    <a style="color: red">${errorMessage}</a>
+            </div>
+            <button id="login_submit" type="submit" class="btn btn-block btn-primary">Sign in</button>
+            <c:if test="${param.error}">
+                <div style="text-align: center; margin-top: 5px">
+                    <p>Wrong username or password</p>
                 </div>
 
-            </form>
-        </article>
+            </c:if>
+        </div>
+
     </div>
+    </form>
 </div>
 </body>
 </html>

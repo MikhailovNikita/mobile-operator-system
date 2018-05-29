@@ -8,4 +8,6 @@ public interface TariffDAO extends GenericDAO<Tariff, Long> {
     List<Tariff> getActiveTariffs();
 
     List<Tariff> getHotTariffs();
+
+    Tariff getByName(String name);
 }

@@ -1,10 +1,13 @@
 <script type="text/javascript">
     function initNewTariffForm() {
         $('#checkboxList').empty();
+        $('#checkboxList').append('<label>Supported options:</label><br>')
+
         $.getJSON('/api/options', function (data) {
             $(data).each(function () {
-                var tariffOption = "<input id=\"option\" type=\"checkbox\" value=\"" + this.id + "\"  name=\"option\">" + this.name + "</option>";
+                var tariffOption = "<input id=\"supportedOptions\" type=\"checkbox\" value=\"" + this.id + "\"  name=\"supportedOptions\">" + this.name + "</supportedOptions>";
                 $('#checkboxList').append(tariffOption);
+                $('#checkboxList').append('<br>');
             });
             $('#checkboxList').append(" <button type=\"submit\" class=\"btn btn-primary\">Submit</button>");
         })
@@ -18,7 +21,7 @@
         var myForm = document.getElementById('new_tariff');
         var formData = new FormData(myForm);
         formData.forEach(function (value, key) {
-            if (key === 'option') {
+            if (key === 'supportedOptions') {
                 object.optionIds.push(value);
             } else {
                 object[key] = value;
@@ -29,7 +32,7 @@
         console.log(json);
         $.ajax({
             type: "POST",
-            url: "http://localhost:8081/api/tariffs",
+            url: "/api/tariffs",
             contentType: "application/json",
             data: json
         }).done(function (result) {
@@ -61,7 +64,7 @@
         <label for="cost">Cost</label>
         <input class="form-control" id="cost" name="cost" type="number">
     </div>
-    <div class="form-group" id="checkboxList">
-        <label>Options:</label>
+    <div class="form-check" id="checkboxList">
+
     </div>
 </form>

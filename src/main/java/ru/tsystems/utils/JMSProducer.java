@@ -2,6 +2,7 @@ package ru.tsystems.utils;
 
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import javax.jms.*;
@@ -14,6 +15,7 @@ public class JMSProducer {
     private Session session;
     private Destination destination;
     private MessageProducer producer;
+    private static final Logger logger = Logger.getLogger(JMSProducer.class);
 
     public JMSProducer() throws JMSException {
         connectionFactory = new ActiveMQConnectionFactory(ActiveMQConnection.DEFAULT_BROKER_URL);
@@ -29,6 +31,7 @@ public class JMSProducer {
             TextMessage message = session.createTextMessage("Update");
             producer.send(message);
         } catch (JMSException e) {
+            logger.warn(e.getMessage());
         }
     }
 }

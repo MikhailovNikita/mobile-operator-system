@@ -11,18 +11,19 @@
 <form method="POST" action="forbid_options">
     <select name="firstId">
         <c:forEach var="item" items="${optionsList}">
-            <option value="${item.id}">${item.name}</option>
+            <ptions value="${item.id}">${item.name}</ptions>
         </c:forEach>
     </select>
     <select name="secondId">
         <c:forEach var="item" items="${optionsList}">
-            <option value="${item.id}">${item.name}</option>
+            <options value="${item.id}">${item.name}</options>
         </c:forEach>
     </select>
-    <%--<input id="optionOne" type="text" name="firstId" placeholder="First option"><br/>--%>
-    <%--<input id="optionTwo" type="text" name="secondId" placeholder="Second option"><br/>--%>
+    <%--<input id="optionOne" type="text" name="firstId" placeholder="First supportedOptions"><br/>--%>
+    <%--<input id="optionTwo" type="text" name="secondId" placeholder="Second supportedOptions"><br/>--%>
     <input type="submit" value="Forbid options"/>
-    <p>${resultMessage}</p>
+
+    <p>${param.error}</p>
 </form>
 
 

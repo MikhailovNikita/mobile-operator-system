@@ -2,6 +2,8 @@ package ru.tsystems.dto;
 
 import ru.tsystems.persistence.entity.Tariff;
 
+import java.util.Arrays;
+
 
 public class TariffDTO  {
 
@@ -66,6 +68,7 @@ public class TariffDTO  {
          dto.setName(tariff.getName());
          dto.setId(tariff.getId());
          dto.setHot(tariff.getHot());
+         dto.setArchive(tariff.getArchive());
          return dto;
     }
 
@@ -76,5 +79,17 @@ public class TariffDTO  {
         tariff.setId(dto.getId());
         tariff.setHot(dto.isHot());
         return tariff;
+    }
+
+    @Override
+    public String toString() {
+        return "TariffDTO{" +
+                "optionIds=" + Arrays.toString(optionIds) +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+                ", id=" + id +
+                ", archive=" + archive +
+                ", hot=" + hot +
+                '}';
     }
 }
